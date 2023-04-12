@@ -1,0 +1,17 @@
+{
+  "add_first_site": "+ افزودن اولین سایت خود",
+  "add_site": "افزودن سایت",
+  "all": "همه",
+  "inbox_message": {
+    "one": "%{count} پیام در صندوق ورودی %{group_name}",
+    "other": "%{count} پیام در صندوق ورودی %{group_name}"
+  },
+  "last_updated": "آخرین به‌روزرسانی:",
+  "liked": "%{count} نفر نوشته شما را پسندیدن",
+  "loading": "بارگذاری...",
+  "new_features": "ویژگی‌های جدید در دسترس است!",
+  "new": "جدید",
+  "notifications": "آگاه‌سازی‌ها",
+  "replies": "پاسخ‌ها",
+  "settings": "تنظیمات"
+}

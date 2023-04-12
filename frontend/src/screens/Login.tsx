@@ -48,7 +48,9 @@ export default function Login() {
         navigate('TwoFactorAuth', tempUser);
       }
     },
-    onError: () => {},
+    onError: () => {
+      console.log('error',error)
+    },
   });
 
   const passwordInputRef = useRef<TextInputType>(null);

@@ -1,0 +1,53 @@
+{
+  "add_first_site": "+ Aggiungi il tuo primo sito",
+  "add_site": "Aggiungi sito",
+  "add_sites": "Aggiungi siti Discourse da seguire",
+  "add": "+ Aggiungi",
+  "all": "Tutti",
+  "approved_commits": {
+    "one": "%{count} commit approvato",
+    "other": "%{count} commit approvati"
+  },
+  "approved": "\"%{title}\" approvato",
+  "check_out_popular": "Dai un’occhiata a queste community popolari",
+  "connect": "connetti",
+  "dont_know_where_to_start": "Non sai da dove cominciare?",
+  "inbox_message": {
+    "one": "%{count} messaggio in arrivo nella casella %{group_name}",
+    "other": "%{count} messaggi in arrivo nella casella %{group_name}"
+  },
+  "incorrect_url": "Spiacenti, %{term} non è un URL corretto di un forum Discourse o non supporta le API mobile, chiedi al proprietario di aggiornare Discourse alla versione più recente!",
+  "last_updated": "Ultimo aggiornamento:",
+  "liked": "ha messo \"mi piace\" a %{count} dei tuoi messaggi",
+  "liked_two_users": "%{user1} e %{user2}",
+  "liked_more": {
+    "one": "%{user1}, %{user2} e %{count} altro",
+    "other": "%{user1}, %{user2} e %{count} altri"
+  },
+  "loading": "Caricamento…",
+  "membership_accepted": "Iscrizione accettata in \"%{name}\"",
+  "membership_request_consolidated": "Nuove richieste di iscrizione in \"%{name}\"",
+  "votes_released": "%{description} - completato",
+  "event_reminder": "Un evento sta per iniziare - %{title}",
+  "chat_mention": "%{name} ti ha menzionato in chat",
+  "chat_message": "Nuovo messaggio in chat",
+  "chat_invitation": "Nuovo invito in chat",
+  "chat_group_mention": "%{username} ha menzionato %{group_name} in chat",
+  "new_with_count": "nuovi (%{count})",
+  "new": "Nuovi",
+  "no_notifications": "Non hai ancora notifiche",
+  "no_replies": "Ancora nessuna risposta",
+  "no_sites_yet": "Non hai ancora nessun sito!",
+  "no_new_notifications": "Non hai nuove notifiche",
+  "not_found": "%{term} non è stato trovato!",
+  "notifications": "Notifiche",
+  "replies": "Risposte",
+  "switch_dark": "Usa il tema scuro",
+  "term_exists": "%{term} esiste già",
+  "unread_with_count": "non letti (%{count})",
+  "term_placeholder": "Inserisci l'indirizzo del tuo sito",
+  "please_wait": "Attendere...",
+  "settings": "Impostazioni",
+  "browser_toggle_label": "Apri siti con browser in-app",
+  "browser_toggle_description": "Quando questa impostazione è disabilitata, i siti verranno avviati tramite il browser preferito, incluse le PWA"
+}

@@ -1,0 +1,15 @@
+{
+  "all": "Todos",
+  "inbox_message": {
+    "one": "%{count} mensagem no seu grupo %{group_name}",
+    "other": "%{count} mensagens no seu grupo %{group_name}"
+  },
+  "last_updated": "Última Atualização:",
+  "liked": "gostou de %{count} das suas publicações",
+  "loading": "A carregar...",
+  "votes_released": "%{description} - concluído",
+  "new": "Novo",
+  "notifications": "Notificações",
+  "replies": "Respostas",
+  "settings": "Configurações"
+}

@@ -1,0 +1,16 @@
+{
+  "all": "Visi",
+  "inbox_message": {
+    "one": "%{count} žinutė, jūsų %{group_name}pato dėžutėje",
+    "few": "%{count} žinutės, jūsų %{group_name}pato dėžutėje",
+    "many": "%{count}žinučių, jūsų %{group_name} pato dėžutėje",
+    "other": "%{count} žinutės, jūsų %{group_name} pašto dėžutėje"
+  },
+  "loading": "Kraunama...",
+  "votes_released": "%{description} - baigtas",
+  "new": "Naujos",
+  "no_replies": "Jokių atsakymų",
+  "notifications": "Perspėjimai",
+  "replies": "Atsakymai",
+  "settings": "Nustatymai"
+}
