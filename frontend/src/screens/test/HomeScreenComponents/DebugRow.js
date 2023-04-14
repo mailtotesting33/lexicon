@@ -53,7 +53,7 @@ const DebugRow = props => {
   return (
     <View style={[styles.container, {backgroundColor: theme.background}]}>
       <Text style={styles.debugText}>
-        {'last_updated'} {Moment(lastRefresh).format('h:mmA')}
+        {/* {'last_updated'} {Moment(lastRefresh).format('h:mmA')} */}
       </Text>
       {renderCogButton()}
     </View>
