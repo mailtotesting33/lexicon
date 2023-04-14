@@ -17,9 +17,9 @@ import DraggableFlatList from 'react-native-draggable-flatlist';
 import SafariWebAuth from 'react-native-safari-web-auth';
 import Site from '../../discourseHelper/site';
 import Components from './HomeScreenComponents';
-import {HEIGHT as TERM_BAR_HEIGHT} from './HomeScreenComponents/TermBar';
-import {ThemeContext} from '../../discourseHelper/ThemeContext';
-import {donateShortcut} from 'react-native-siri-shortcut';
+import { HEIGHT as TERM_BAR_HEIGHT } from './HomeScreenComponents/TermBar';
+import { ThemeContext } from '../../discourseHelper/ThemeContext';
+import { donateShortcut } from 'react-native-siri-shortcut';
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -42,7 +42,7 @@ class HomeScreen extends React.Component {
       loadingSites: this._siteManager.isLoading(),
     };
 
-    this._onChangeSites = e => this.onChangeSites(e);
+    this._onChangeSites = (e) => this.onChangeSites(e);
     this._dragItem = this._dragItem.bind(this);
     this._renderItem = this._renderItem.bind(this);
   }
@@ -57,7 +57,7 @@ class HomeScreen extends React.Component {
         );
       } else {
         if (this._siteManager.supportsDelegatedAuth(site)) {
-          this._siteManager.generateURLParams(site).then(params => {
+          this._siteManager.generateURLParams(site).then((params) => {
             this.props.screenProps.openUrl(`${site.url}${endpoint}?${params}`);
           });
         } else {
@@ -72,7 +72,7 @@ class HomeScreen extends React.Component {
     }
 
     if (connect || site.loginRequired) {
-      this._siteManager.generateAuthURL(site).then(url => {
+      this._siteManager.generateAuthURL(site).then((url) => {
         if (this._siteManager.supportsDelegatedAuth(site)) {
           SafariWebAuth.requestAuth(url);
         } else {
@@ -109,6 +109,7 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
+    this.doSearch('community.bloom.pm');
     this._siteManager.subscribe(this._onChangeSites);
     this._onChangeSites();
   }
@@ -119,10 +120,10 @@ class HomeScreen extends React.Component {
 
   onChangeSites(e) {
     if (this._siteManager.isLoading() !== this.state.loadingSites) {
-      this.setState({loadingSites: this._siteManager.isLoading()});
+      this.setState({ loadingSites: this._siteManager.isLoading() });
     }
     if (e && e.event) {
-      this.setState({data: this._siteManager.listSites()});
+      this.setState({ data: this._siteManager.listSites() });
     }
   }
 
@@ -130,50 +131,50 @@ class HomeScreen extends React.Component {
     if (term.length === 0) {
       return new Promise((resolve, reject) => reject());
     }
-
-    this.setState({addSiteProgress: Math.random() * 0.4});
+    console.log('term', term);
+    this.setState({ addSiteProgress: Math.random() * 0.4 });
 
     return new Promise((resolve, reject) => {
       Site.fromTerm(term)
-        .then(site => {
-          this.setState(
-            {
-              displayTermBar: false,
-              addSiteProgress: 1,
-            },
-            () => {
-              this.onToggleTermBar(this.state.displayTermBar);
-            },
-          );
+        .then((site) => {
+          // this.setState(
+          //   {
+          //     displayTermBar: false,
+          //     addSiteProgress: 1,
+          //   },
+          //   () => {
+          //     this.onToggleTermBar(this.state.displayTermBar);
+          //   },
+          // );
 
           if (site) {
             if (this._siteManager.exists(site)) {
-              throw 'dupe site';
+            } else {
+              this._siteManager.add(site);
             }
-            this._siteManager.add(site);
           }
 
           resolve(site);
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
 
           if (e === 'dupe site') {
-            Alert.alert('term_exists', {term});
+            Alert.alert('term_exists', { term });
           } else if (e === 'bad api') {
-            Alert.alert('incorrect_url', {term});
+            Alert.alert('incorrect_url', { term });
           } else {
             // Alert.alert('not_found', {term});
           }
 
-          this.setState({displayTermBar: true, addSiteProgress: 1});
-          this.onToggleTermBar(this.state.displayTermBar);
+          // this.setState({displayTermBar: true, addSiteProgress: 1});
+          // this.onToggleTermBar(this.state.displayTermBar);
 
           reject('failure');
         })
         .finally(() => {
           setTimeout(() => {
-            this.setState({addSiteProgress: 0});
+            this.setState({ addSiteProgress: 0 });
           }, 1000);
         });
     });
@@ -181,15 +182,15 @@ class HomeScreen extends React.Component {
 
   pullDownToRefresh() {
     console.log('pullDownToRefresh');
-    this.setState({isRefreshing: true});
+    this.setState({ isRefreshing: true });
 
     this._siteManager
       .refreshSites()
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       })
       .then(() => {
-        this.setState({isRefreshing: false});
+        this.setState({ isRefreshing: false });
       });
   }
 
@@ -215,11 +216,13 @@ class HomeScreen extends React.Component {
     }
   }
 
-  _renderItem({item, index, drag, isActive}) {
+  _renderItem({ item, index, drag, isActive }) {
     return (
       <Components.SiteRow
         site={item}
-        onSwipe={scrollEnabled => this.setState({scrollEnabled: scrollEnabled})}
+        onSwipe={(scrollEnabled) =>
+          this.setState({ scrollEnabled: scrollEnabled })
+        }
         onClick={(endpoint = '') => this.visitSite(item, false, endpoint)}
         onClickConnect={() => this.visitSite(item, true)}
         onDelete={() => this._siteManager.remove(item)}
@@ -228,21 +231,21 @@ class HomeScreen extends React.Component {
     );
   }
 
-  _dragItem({data, from, to}) {
+  _dragItem({ data, from, to }) {
     this._siteManager.updateOrder(from, to);
   }
 
   _renderSites() {
     const theme = this.context;
     if (this.state.loadingSites) {
-      return <View style={{flex: 1}} />;
+      return <View style={{ flex: 1 }} />;
     }
 
     if (this.shouldDisplayOnBoarding()) {
       return (
         <Components.OnBoardingView
           onDidPressAddSite={() =>
-            this.setState({displayTermBar: true}, () => {
+            this.setState({ displayTermBar: true }, () => {
               this.onToggleTermBar(this.state.displayTermBar);
             })
           }
@@ -254,13 +257,13 @@ class HomeScreen extends React.Component {
           style={styles.sitesList}
           activationDistance={20}
           data={this.state.data}
-          renderItem={item => this._renderItem(item)}
+          renderItem={(item) => this._renderItem(item)}
           keyExtractor={(item, index) => `draggable-item-${item.url}`}
           onDragEnd={this._dragItem}
           scaleSelectionFactor={1.05}
           refreshControl={
             <RefreshControl
-              style={{left: 500}}
+              style={{ left: 500 }}
               enabled={this.state.refreshingEnabled}
               refreshing={this.state.isRefreshing}
               onRefresh={() => this.pullDownToRefresh()}
@@ -287,7 +290,7 @@ class HomeScreen extends React.Component {
   }
 
   onDidPressLeftButton() {
-    this.setState({displayTermBar: !this.state.displayTermBar}, () => {
+    this.setState({ displayTermBar: !this.state.displayTermBar }, () => {
       this.onToggleTermBar(this.state.displayTermBar);
     });
   }
@@ -308,23 +311,33 @@ class HomeScreen extends React.Component {
     });
     return (
       <SafeAreaView
-        style={[styles.container, {backgroundColor: theme.background}]}>
-        <Components.NavigationBar
+        style={[styles.container, { backgroundColor: theme.background }]}
+      >
+        {/* <Components.NavigationBar
           leftButtonIconRotated={this.state.displayTermBar}
           anim={this.state.anim}
           rightButtonIconColor={theme.grayUI}
           onDidPressLeftButton={() => this.onDidPressLeftButton()}
           onDidPressRightButton={() => this.onDidPressRightButton()}
           progress={this.state.addSiteProgress}
-        />
+        /> */}
         <Components.TermBar
           anim={this.state.anim}
-          getInputRef={ref => (this._input = ref)}
-          onDidSubmitTerm={term => this.doSearch(term)}
+          getInputRef={(ref) => (this._input = ref)}
+          onDidSubmitTerm={(term) => this.doSearch(term)}
         />
         <Animated.View
-          style={[styles.sitesContainer, {transform: [{translateY}]}]}>
-          {this._renderSites()}
+          style={[styles.sitesContainer, { transform: [{ translateY }] }]}
+        >
+          <Components.OnBoardingView
+            site={this._siteManager.sites}
+            onDidPressAddSite={() => {
+              this._siteManager?.sites[0]?.authToken
+                ? this.visitSite(this._siteManager?.sites[0], false)
+                : this.visitSite(this._siteManager?.sites[0], true);
+            }}
+          />
+          {/* {this._renderSites()} */}
           {this._renderDebugRow()}
         </Animated.View>
       </SafeAreaView>

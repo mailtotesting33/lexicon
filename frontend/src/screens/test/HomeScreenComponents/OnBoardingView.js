@@ -1,21 +1,24 @@
 /* @flow */
 'use strict';
 
-import React, {useContext} from 'react';
+import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 // import i18n from 'i18n-js';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ThemeContext} from '../../../discourseHelper/ThemeContext';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ThemeContext } from '../../../discourseHelper/ThemeContext';
 
-const OnBoardingView = props => {
+const OnBoardingView = (props) => {
   const theme = useContext(ThemeContext);
-  const img =''
-    // theme.name === 'light'
-    //   ? require('../../../img/onboarding.png')
-    //   : require('../../../img/onboarding-dark.png');
+  console.log('props', props?.site[0]);
+  const communitySite = props?.site[0];
+
+  const img = '';
+  // theme.name === 'light'
+  //   ? require('../../../img/onboarding.png')
+  //   : require('../../../img/onboarding-dark.png');
 
   return (
-    <View style={{backgroundColor: theme.grayBackground, flex: 1}}>
+    <View style={{ backgroundColor: theme.grayBackground, flex: 1 }}>
       <View style={styles.illustrationContainer}>
         {/* <Image
           style={{width: '100%', height: '100%'}}
@@ -25,22 +28,30 @@ const OnBoardingView = props => {
       </View>
       <View style={styles.addSiteContainer}>
         <View style={styles.text}>
-          <Text style={{...styles.title, color: theme.grayTitle}}>
-            {'no_sites_yet'}
+          <Text style={{ ...styles.title, color: theme.grayTitle }}>
+            {communitySite?.title}
           </Text>
-          <Text style={{...styles.subtitle, color: theme.graySubtitle}}>
-            {'add_sites'}
+          <Text
+            style={[
+              { ...styles.subtitle, color: theme.graySubtitle },
+              { textAlign: 'center' },
+            ]}
+          >
+            {communitySite?.description}
           </Text>
         </View>
 
-        <TouchableOpacity onPress={() => props.onDidPressAddSite()}>
+        <TouchableOpacity
+          onPress={() =>  props.onDidPressAddSite()}
+        >
           <Text
             style={{
               ...styles.addSiteButtonText,
               backgroundColor: theme.blueCallToAction,
               color: theme.buttonTextColor,
-            }}>
-            {'add_first_site'}
+            }}
+          >
+            {communitySite?.authToken ? 'Visit Site' : 'Login'}
           </Text>
         </TouchableOpacity>
       </View>
