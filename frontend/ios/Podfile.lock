@@ -40,6 +40,16 @@ PODS:
     - ReactCommon/turbomodule/core (= 0.68.2)
   - fmt (6.2.1)
   - glog (0.3.5)
+  - OneSignalXCFramework (3.12.4):
+    - OneSignalXCFramework/OneSignalCore (= 3.12.4)
+    - OneSignalXCFramework/OneSignalExtension (= 3.12.4)
+    - OneSignalXCFramework/OneSignalOutcomes (= 3.12.4)
+  - OneSignalXCFramework/OneSignalCore (3.12.4)
+  - OneSignalXCFramework/OneSignalExtension (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
+    - OneSignalXCFramework/OneSignalOutcomes
+  - OneSignalXCFramework/OneSignalOutcomes (3.12.4):
+    - OneSignalXCFramework/OneSignalCore
   - RCT-Folly (2021.06.28.00-v2):
     - boost
     - DoubleConversion
@@ -249,6 +259,9 @@ PODS:
     - glog
   - react-native-key-pair (1.1.1):
     - React
+  - react-native-onesignal (4.5.1):
+    - OneSignalXCFramework (= 3.12.4)
+    - React (< 1.0.0, >= 0.13.0)
   - react-native-root-view-background-color (1.0.2):
     - React
   - react-native-safari-view (1.0.0):
@@ -399,6 +412,7 @@ DEPENDENCIES:
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - OneSignalXCFramework (< 4.0, >= 3.0)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -415,6 +429,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-key-pair (from `../node_modules/react-native-key-pair`)
+  - react-native-onesignal (from `../node_modules/react-native-onesignal`)
   - react-native-root-view-background-color (from `../node_modules/react-native-root-view-background-color`)
   - react-native-safari-view (from `../node_modules/react-native-safari-view`)
   - react-native-safari-web-auth (from `../node_modules/react-native-safari-web-auth`)
@@ -449,6 +464,7 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - fmt
+    - OneSignalXCFramework
 
 EXTERNAL SOURCES:
   boost:
@@ -515,6 +531,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-key-pair:
     :path: "../node_modules/react-native-key-pair"
+  react-native-onesignal:
+    :path: "../node_modules/react-native-onesignal"
   react-native-root-view-background-color:
     :path: "../node_modules/react-native-root-view-background-color"
   react-native-safari-view:
@@ -596,6 +614,7 @@ SPEC CHECKSUMS:
   FBReactNativeSpec: 81ce99032d5b586fddd6a38d450f8595f7e04be4
   fmt: ff9d55029c625d3757ed641535fd4a75fedc7ce9
   glog: 476ee3e89abb49e07f822b48323c51c57124b572
+  OneSignalXCFramework: 087934ab0d4d7445fcf1c015c7c782359e26c020
   RCT-Folly: 4d8508a426467c48885f1151029bc15fa5d7b3b8
   RCTRequired: 3e917ea5377751094f38145fdece525aa90545a0
   RCTTypeSafety: c43c072a4bd60feb49a9570b0517892b4305c45e
@@ -610,6 +629,7 @@ SPEC CHECKSUMS:
   React-jsinspector: c5989c77cb89ae6a69561095a61cce56a44ae8e8
   React-logger: a0833912d93b36b791b7a521672d8ee89107aff1
   react-native-key-pair: d45fb2e417ffb0fca307e9bbe22111aa38c3233f
+  react-native-onesignal: 7bd44dbd031d8d57110c0203836ffc37ddead526
   react-native-root-view-background-color: e7ba21b82c8b7b2a1f902750f08c9dc1a5b38cea
   react-native-safari-view: 955d7160d159241b8e9395d12d10ea0ef863dcdd
   react-native-safari-web-auth: b6642abaa8084a8e5addba1cba4521fd30b95b64
@@ -641,6 +661,6 @@ SPEC CHECKSUMS:
   RNSVG: 302bfc9905bd8122f08966dc2ce2d07b7b52b9f8
   Yoga: 99652481fcd320aefa4a7ef90095b95acd181952
 
-PODFILE CHECKSUM: faea55f1b5bb99943e55d5551210473fe9605dcc
+PODFILE CHECKSUM: ae737b111ec838441007facf1cc9f66a91777b8d
 
 COCOAPODS: 1.11.3
