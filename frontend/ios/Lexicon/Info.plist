@@ -40,7 +40,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>4</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -56,6 +56,10 @@
 			</dict>
 		</dict>
 	</dict>
+	 <key>NSLocationAlwaysUsageDescription</key>
+    <string>Your location is required for app benefits for you</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Your location is required for app benefits for you</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your camera</string>
 	<key>NSMicrophoneUsageDescription</key>
@@ -63,6 +67,11 @@
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow $(PRODUCT_NAME) to access your photos</string>
 	<key>UIBackgroundModes</key>
+
+
+
+
+
 	<array>
 		<string>remote-notification</string>
 	</array>

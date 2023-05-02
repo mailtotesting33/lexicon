@@ -28,7 +28,7 @@ import firebase from './screens/firebase/helper';
 import bgMessaging from './screens/firebase/bgMessaging';
 import BackgroundFetch from 'react-native-background-fetch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import RootViewBackgroundColor from 'react-native-root-view-background-color';
+// import RootViewBackgroundColor from 'react-native-root-view-background-color';
 import {CustomTabs} from 'react-native-custom-tabs';
 import {addShortcutListener} from 'react-native-siri-shortcut';
 import {enableScreens} from 'react-native-screens';
@@ -78,6 +78,11 @@ class Discourse extends React.Component {
     super(props);
     this._siteManager = new SiteManager();
     this._refresh = this._refresh.bind(this);
+
+    const ONESIGNAL_APP_ID =  '3c992628-f8c9-423e-bf55-43787c55c567'
+
+    // OneSignal Initialization
+    OneSignal.setAppId(ONESIGNAL_APP_ID);
 
     this._handleAppStateChange = nextAppState => {
       console.log('Detected appState change: ' + nextAppState);
@@ -182,11 +187,11 @@ class Discourse extends React.Component {
       return;
     }
 
-    if (colorScheme === 'dark') {
-      RootViewBackgroundColor.setBackground(0, 0, 0, 1);
-    } else {
-      RootViewBackgroundColor.setBackground(255, 255, 255, 1);
-    }
+    // if (colorScheme === 'dark') {
+    //   RootViewBackgroundColor.setBackground(0, 0, 0, 1);
+    // } else {
+    //   RootViewBackgroundColor.setBackground(255, 255, 255, 1);
+    // }
   }
 
   // _handleLocalNotification(e) {
@@ -285,11 +290,6 @@ class Discourse extends React.Component {
   }
 
   componentDidMount() {
-
-   const ONESIGNAL_APP_ID =  '3c992628-f8c9-423e-bf55-43787c55c567'
-
-    // OneSignal Initialization
-    OneSignal.setAppId(ONESIGNAL_APP_ID);
     
     // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
     // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)

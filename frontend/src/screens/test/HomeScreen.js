@@ -52,9 +52,9 @@ class HomeScreen extends React.Component {
 
     if (site.authToken) {
       if (site.oneTimePassword) {
-        this.props.screenProps.openUrl(
-          `${site.url}/session/otp/${site.oneTimePassword}`,
-        );
+        // this.props.screenProps.openUrl(
+        //   `${site.url}/session/otp/${site.oneTimePassword}`,
+        // );
       } else {
         if (this._siteManager.supportsDelegatedAuth(site)) {
           this._siteManager.generateURLParams(site).then((params) => {
@@ -109,7 +109,8 @@ class HomeScreen extends React.Component {
   }
 
   componentDidMount() {
-    this.doSearch('community.bloom.pm');
+    this.doSearch('https://community.bloom.pm/');
+    // this.doSearch('community.bloom.pm');
     this._siteManager.subscribe(this._onChangeSites);
     this._onChangeSites();
   }
@@ -347,7 +348,8 @@ class HomeScreen extends React.Component {
 
 HomeScreen.contextType = ThemeContext;
 
-const styles = StyleSheet.create({
+const styles = StyleSheet.create(
+  {
   list: {
     flex: 1,
   },
@@ -362,6 +364,7 @@ const styles = StyleSheet.create({
   sitesList: {
     height: '100%',
   },
-});
+}
+);
 
 export default HomeScreen;
