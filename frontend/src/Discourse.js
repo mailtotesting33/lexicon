@@ -2,7 +2,7 @@
 'use strict';
 
 import React from 'react';
-import {ThemeContext, themes} from './discourseHelper/ThemeContext';
+import { ThemeContext, themes } from './discourseHelper/ThemeContext';
 import {
   Alert,
   Appearance,
@@ -15,8 +15,8 @@ import {
   StatusBar,
   View,
 } from 'react-native';
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator, TransitionPresets} from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator, TransitionPresets } from '@react-navigation/stack';
 import PushNotificationIOS from '@react-native-community/push-notification-ios';
 import Screens from './screens/test';
 import Site from './discourseHelper/site';
@@ -29,10 +29,10 @@ import bgMessaging from './screens/firebase/bgMessaging';
 import BackgroundFetch from 'react-native-background-fetch';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 // import RootViewBackgroundColor from 'react-native-root-view-background-color';
-import {CustomTabs} from 'react-native-custom-tabs';
-import {addShortcutListener} from 'react-native-siri-shortcut';
-import {enableScreens} from 'react-native-screens';
-import type {Notification, NotificationOpen} from './screens/firebase/helper';
+import { CustomTabs } from 'react-native-custom-tabs';
+import { addShortcutListener } from 'react-native-siri-shortcut';
+import { enableScreens } from 'react-native-screens';
+import type { Notification, NotificationOpen } from './screens/firebase/helper';
 import OneSignal from 'react-native-onesignal';
 
 // const {DiscourseKeyboardShortcuts} = NativeModules;
@@ -79,7 +79,7 @@ class Discourse extends React.Component {
     this._siteManager = new SiteManager();
     this._refresh = this._refresh.bind(this);
 
-    const ONESIGNAL_APP_ID =  '3c992628-f8c9-423e-bf55-43787c55c567'
+    const ONESIGNAL_APP_ID = '3c992628-f8c9-423e-bf55-43787c55c567'
 
     // OneSignal Initialization
     OneSignal.setAppId(ONESIGNAL_APP_ID);
@@ -255,7 +255,7 @@ class Discourse extends React.Component {
 
       // handle site URL passed via app-argument
       if (params.siteUrl) {
-        if (this._siteManager.exists({url: params.siteUrl})) {
+        if (this._siteManager.exists({ url: params.siteUrl })) {
           console.log(`${params.siteUrl} exists!`);
           this.openUrl(params.siteUrl);
         } else {
@@ -288,13 +288,12 @@ class Discourse extends React.Component {
       }
     }
   }
-
   componentDidMount() {
-    
+
     // promptForPushNotificationsWithUserResponse will show the native iOS or Android notification permission prompt.
     // We recommend removing the following code and instead using an In-App Message to prompt for notification permission (See step 8)
     OneSignal.promptForPushNotificationsWithUserResponse();
-    
+
     //Method for handling notifications received while app in foreground
     OneSignal.setNotificationWillShowInForegroundHandler(notificationReceivedEvent => {
       console.log("OneSignal: notification will show in foreground:", notificationReceivedEvent);
@@ -305,10 +304,11 @@ class Discourse extends React.Component {
       // Complete with null means don't show a notification.
       notificationReceivedEvent.complete(notification);
     });
-    
+
     //Method for handling notifications opened
     OneSignal.setNotificationOpenedHandler(notification => {
-      console.log("OneSignal: notification opened:", notification);
+      console.log("OneSignal: notification opened:", notification.notification.additionalData.discourse_url);
+      this.openUrl(`https://community.bloom.pm${notification.notification.additionalData.discourse_url}`)
     });
 
 
@@ -327,7 +327,7 @@ class Discourse extends React.Component {
 
     Linking.getInitialURL().then(url => {
       if (url) {
-        this._handleOpenUrl({url: url});
+        this._handleOpenUrl({ url: url });
       }
     });
 
@@ -338,7 +338,7 @@ class Discourse extends React.Component {
         sound: true,
       });
 
-      addShortcutListener(({userInfo, activityType}) => {
+      addShortcutListener(({ userInfo, activityType }) => {
         // Do something with the userInfo and/or activityType
         if (userInfo.siteUrl) {
           this._handleOpenUrl({
@@ -392,7 +392,7 @@ class Discourse extends React.Component {
 
     // BackgroundFetch register (15-minute minimum interval allowed)
     BackgroundFetch.configure(
-      {minimumFetchInterval: 15},
+      { minimumFetchInterval: 15 },
       async taskId => {
         console.log('[js] Received background-fetch event: ', taskId);
 
@@ -459,7 +459,7 @@ class Discourse extends React.Component {
   openUrl(url, supportsDelegatedAuth = true) {
     if (Platform.OS === 'ios') {
       if (!supportsDelegatedAuth) {
-        this.safariViewTimeout = setTimeout(() => SafariView.show({url}), 400);
+        this.safariViewTimeout = setTimeout(() => SafariView.show({ url }), 400);
       } else {
         SafariView.dismiss();
 
@@ -513,7 +513,7 @@ class Discourse extends React.Component {
           <Stack.Navigator
             initialRouteName="Home"
             presentation="modal"
-            screenOptions={({navigation}) => {
+            screenOptions={({ navigation }) => {
               this._navigation = navigation;
               return {
                 headerShown: false,
@@ -522,25 +522,25 @@ class Discourse extends React.Component {
             }}>
             <Stack.Screen name="Home">
               {props => (
-                <Screens.Home {...props} screenProps={{...screenProps}} />
+                <Screens.Home {...props} screenProps={{ ...screenProps }} />
               )}
             </Stack.Screen>
             <Stack.Screen name="Notifications">
               {props => (
                 <Screens.Notifications
                   {...props}
-                  screenProps={{...screenProps}}
+                  screenProps={{ ...screenProps }}
                 />
               )}
             </Stack.Screen>
             <Stack.Screen name="Settings">
               {props => (
-                <Screens.Settings {...props} screenProps={{...screenProps}} />
+                <Screens.Settings {...props} screenProps={{ ...screenProps }} />
               )}
             </Stack.Screen>
             <Stack.Screen name="WebView">
               {props => (
-                <Screens.WebView {...props} screenProps={{...screenProps}} />
+                <Screens.WebView {...props} screenProps={{ ...screenProps }} />
               )}
             </Stack.Screen>
           </Stack.Navigator>

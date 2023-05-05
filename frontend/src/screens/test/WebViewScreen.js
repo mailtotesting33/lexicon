@@ -10,14 +10,17 @@ import {
   Settings,
   Share,
   StatusBar,
+  Platform
 } from 'react-native';
-import {WebView} from 'react-native-webview';
+import { WebView } from 'react-native-webview';
 import Components from './WebViewScreenComponents';
 // import ProgressBar from '../ProgressBar';
 // import TinyColor from '../../lib/tinycolor';
 import SafariView from 'react-native-safari-view';
-import {ThemeContext} from '../../discourseHelper/ThemeContext';
-import {useSafeAreaInsets} from 'react-native-safe-area-context';
+import { ThemeContext } from '../../discourseHelper/ThemeContext';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import OneSignal from 'react-native-onesignal';
+import DeviceInfo from 'react-native-device-info';
 
 export const withInsets = Component => {
   return props => {
@@ -28,7 +31,7 @@ export const withInsets = Component => {
 };
 
 class WebViewScreen extends React.Component {
-  static navigationOptions = ({screenProps}) => {
+  static navigationOptions = ({ screenProps }) => {
     // avoid accidental scroll down to dismiss action on devices without a notch
     return {
       gestureResponseDistance: {
@@ -113,7 +116,7 @@ class WebViewScreen extends React.Component {
     // We want to serve desktop version on fullscreen iPad app
     // and mobile version on split view.
     // That's why we append the device ID (which includes "iPad" on large window sizes only)
-    const {width, height} = event.nativeEvent.layout;
+    const { width, height } = event.nativeEvent.layout;
 
     this.setState({
       userAgentSuffix:
@@ -155,7 +158,7 @@ class WebViewScreen extends React.Component {
           }),
         }}>
         <StatusBar barStyle={this.state.barStyle} />
-        <View style={{marginTop: isIpad ? 10 : 0}}>
+        <View style={{ marginTop: isIpad ? 10 : 0 }}>
           {/* <ProgressBar progress={this.state.progress} /> */}
         </View>
         {this.state.layoutCalculated && (
@@ -164,7 +167,7 @@ class WebViewScreen extends React.Component {
               marginTop: -1, // hacky fix to a 1px overflow just above header
             }}
             ref={ref => (this.webview = ref)}
-            source={{uri: this.state.webviewUrl}}
+            source={{ uri: this.state.webviewUrl }}
             applicationNameForUserAgent={this.state.userAgentSuffix}
             allowsBackForwardNavigationGestures={true}
             allowsInlineMediaPlayback={true}
@@ -175,8 +178,8 @@ class WebViewScreen extends React.Component {
               this.webview.requestFocus();
             }}
             onError={syntheticEvent => {
-              const {nativeEvent} = syntheticEvent;
-              this.setState({errorData: nativeEvent});
+              const { nativeEvent } = syntheticEvent;
+              this.setState({ errorData: nativeEvent });
             }}
             renderError={errorName => (
               <Components.ErrorScreen
@@ -213,7 +216,7 @@ class WebViewScreen extends React.Component {
                       const useSVC = Settings.get('external_links_svc');
                       if (useSVC) {
                         if (!this.safariViewVisible) {
-                          SafariView.show({url: request.url});
+                          SafariView.show({ url: request.url });
                         }
                       } else {
                         Linking.openURL(request.url);
@@ -231,7 +234,7 @@ class WebViewScreen extends React.Component {
               StatusBar.setBarStyle(this.state.barStyle, true);
             }}
             decelerationRate={'normal'}
-            onLoadProgress={({nativeEvent}) => {
+            onLoadProgress={({ nativeEvent }) => {
               const progress = nativeEvent.progress;
               this.setState({
                 progress: progress,
@@ -239,7 +242,7 @@ class WebViewScreen extends React.Component {
 
               if (progress === 1) {
                 this.progressTimeout = setTimeout(
-                  () => this.setState({progress: 0}),
+                  () => this.setState({ progress: 0 }),
                   400,
                 );
               }
@@ -276,20 +279,31 @@ class WebViewScreen extends React.Component {
 
   _onMessage(event) {
     let data = JSON.parse(event.nativeEvent.data);
-    let {headerBg, shareUrl, dismiss, markRead} = data;
+    let { headerBg, shareUrl, dismiss, markRead } = data;
+
+    if (data.currentUsername) {
+      const sub = `
+      window.DiscourseOnesignal.subscribeDeviceToken("${DeviceInfo.getUniqueId()}", "${Platform.OS
+        }", "Lexicon");
+      true;
+    `;
+
+      this.webview.injectJavaScript(sub);
+      OneSignal.sendTag('username', data.currentUsername);
+    }
 
     if (headerBg) {
       // when fully transparent, use black status bar
       // if (TinyColor(headerBg).getAlpha() === 0) {
-        headerBg = 'rgb(0,0,0)';
+      headerBg = 'rgb(0,0,0)';
       // }
 
       this.setState({
         headerBg: headerBg,
-        barStyle:'dark-content'
-          // TinyColor(headerBg).getBrightness() < 125
-          //   ? 'light-content'
-          //   : 'dark-content',
+        barStyle: 'dark-content'
+        // TinyColor(headerBg).getBrightness() < 125
+        //   ? 'light-content'
+        //   : 'dark-content',
       });
       // ugly hack for an outstanding react-native-webview issue with the statusbar
       // https://github.com/react-native-community/react-native-webview/issues/735

@@ -20,6 +20,7 @@ import Components from './HomeScreenComponents';
 import { HEIGHT as TERM_BAR_HEIGHT } from './HomeScreenComponents/TermBar';
 import { ThemeContext } from '../../discourseHelper/ThemeContext';
 import { donateShortcut } from 'react-native-siri-shortcut';
+import OneSignal from 'react-native-onesignal';
 
 UIManager.setLayoutAnimationEnabledExperimental &&
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -350,21 +351,21 @@ HomeScreen.contextType = ThemeContext;
 
 const styles = StyleSheet.create(
   {
-  list: {
-    flex: 1,
-  },
-  container: {
-    flex: 1,
-  },
-  sitesContainer: {
-    flex: 1,
-    marginTop: -TERM_BAR_HEIGHT,
-    paddingBottom: 40,
-  },
-  sitesList: {
-    height: '100%',
-  },
-}
+    list: {
+      flex: 1,
+    },
+    container: {
+      flex: 1,
+    },
+    sitesContainer: {
+      flex: 1,
+      marginTop: -TERM_BAR_HEIGHT,
+      paddingBottom: 40,
+    },
+    sitesList: {
+      height: '100%',
+    },
+  }
 );
 
 export default HomeScreen;
