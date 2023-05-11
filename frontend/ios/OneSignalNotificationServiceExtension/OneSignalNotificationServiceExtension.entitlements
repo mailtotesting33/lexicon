@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.pm.bloom.community.onesignal</string>
+		<string>group.pm.bloom.comm.onesignal</string>
 	</array>
 </dict>
 </plist>
