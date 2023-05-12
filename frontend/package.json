@@ -10,7 +10,7 @@
     "test": "yarn graphql:generate && yarn lint && yarn typecheck && yarn format:check && yarn jest",
     "eject": "expo eject",
     "graphql:generate": "graphql-codegen --config codegen.yml",
-    "android": "expo run:android",
+    "android": "react-native run-android",
     "ios": "expo run:ios"
   },
   "dependencies": {

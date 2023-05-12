@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { ThemeContext } from '../../../discourseHelper/ThemeContext';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
-import { LightLogo } from '../../../../assets/images/index';
+import { LightLogo, DarkLogo } from '../../../../assets/images/index';
 const OnBoardingView = (props) => {
   const theme = useContext(ThemeContext);
   console.log('props', props?.site[0]);
@@ -21,22 +21,21 @@ const OnBoardingView = (props) => {
       scrollEventThrottle={0}
       style={styles.container}
     >
-      <Text style={{textAlign:'center',fontSize:22,fontWeight:'500'}}>Log In</Text>
+      <Text style={{ textAlign: 'center', fontSize: 22, marginTop: 10, fontWeight: '500' }}>Login</Text>
       <Image
-        source={LightLogo}
-        style={ {
+        source={theme.name === 'light' ? LightLogo : DarkLogo}
+        style={{
           height: 120,
           width: '100%',
-          marginVertical:46,
-          backgroundColor: '#FFFFFF',
+          marginVertical: 46,
         }}
         resizeMode="contain"
       />
-    
-      <View style={{paddingTop:160}}>
-        <TouchableOpacity           onPress={() =>  props.onDidPressAddSite()}
- style={{alignSelf:'center',alignItems:'center',justifyContent:'center',backgroundColor:'#2B6AFF',width:'90%',height:48,borderRadius:25}}>
-          <Text style={{color:"#FFFFFF",fontWeight:'500',fontSize:16}}> {communitySite?.authToken ? 'Visit Site' : 'Log in with Bloom'}</Text>
+
+      <View style={{ paddingTop: 160 }}>
+        <TouchableOpacity onPress={() => props.onDidPressAddSite()}
+          style={{ alignSelf: 'center', alignItems: 'center', justifyContent: 'center', backgroundColor: '#2B6AFF', width: '90%', height: 48, borderRadius: 25 }}>
+          <Text style={{ color: "#FFFFFF", fontWeight: '500', fontSize: 16 }}> {communitySite?.authToken ? 'Visit Site' : 'Login with Bloom'}</Text>
         </TouchableOpacity>
       </View>
     </KeyboardAwareScrollView>

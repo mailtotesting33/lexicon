@@ -19,7 +19,7 @@ export const themes = {
     name: 'light',
   },
   dark: {
-    background: '#111',
+    background: '#000',
     buttonTextColor: '#111',
     grayBackground: '#212121',
     grayBorder: '#343434',
